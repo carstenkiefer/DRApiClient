@@ -61,7 +61,7 @@ class DrApiClient {
             ],
             "auth" => [$_ENV["HC_DRAPICLIENT_API_USER"], $_ENV["HC_DRAPICLIENT_API_PASS"]]
         ]);
-        if ($response->getStatusCode() === 200) {
+        if ($response->getStatusCode() <= 300) {
             $data = json_decode($response->getBody()->getContents());
             $this->cache->save(self::$KEY_TOKEN, $data->access_token, 3600);
             return $data->access_token;
@@ -78,7 +78,7 @@ class DrApiClient {
             $data["portal_account_id"] = $_ENV["HC_DRAPICLIENT_PORTAL_ACCOUNT_ID"];
         }
         $response = $http->post($endpoint->getEndpoint(Endpoint::$CREATE), array_merge($this->getDefaultOptions(), $options, ["json" => $data]));
-        if ($response->getStatusCode() === 200) {
+        if ($response->getStatusCode() <= 300) {
             $json = json_decode($response->getBody()->getContents(), true);
             return array_shift($json);
         } else {
@@ -93,7 +93,7 @@ class DrApiClient {
         $response = $http->delete($endpoint->getEndpoint(Endpoint::$DELETE, $id), [
             "headers" => ["Authorization" => "Bearer " . $this->getToken()]
         ]);
-        if ($response->getStatusCode() === 200) {
+        if ($response->getStatusCode() <= 300) {
             $json = json_decode($response->getBody()->getContents(), true);
             return array_shift($json);
         } else {
@@ -109,7 +109,7 @@ class DrApiClient {
             $data["portal_account_id"] = $_ENV["HC_DRAPICLIENT_PORTAL_ACCOUNT_ID"];
         }
         $response = $http->post($endpoint->getEndpoint(Endpoint::$UPDATE, $id), array_merge($this->getDefaultOptions(), $options, ["json" => $data]));
-        if ($response->getStatusCode() === 200) {
+        if ($response->getStatusCode() <= 300) {
             $json = json_decode($response->getBody()->getContents(), true);
             return array_shift($json);
         } else {
@@ -128,7 +128,7 @@ class DrApiClient {
         );
         $http = new Client(['base_uri' => $_ENV["HC_DRAPICLIENT_HOST"]]);
         $response = $http->send($request);
-        if ($response->getStatusCode() === 200) {
+        if ($response->getStatusCode() <= 300) {
             $json = json_decode($response->getBody()->getContents(), false);
             $data = $json->{$endpoint->getName()};
             $resourceClass = $endpoint->getResource();
@@ -152,7 +152,7 @@ class DrApiClient {
         );
         $http = new Client(['base_uri' => $_ENV["HC_DRAPICLIENT_HOST"]]);
         $response = $http->send($request);
-        if ($response->getStatusCode() === 200) {
+        if ($response->getStatusCode() <= 300) {
             $list = [];
             $json = json_decode($response->getBody()->getContents(), false);
             $data = $json->{$endpoint->getName()};
