@@ -5,7 +5,7 @@
 
 namespace Hc\DrApiClient\Endpoint;
 
-use App\DrApiClient\Exception\EndpointUnsupportedMethodException;
+use Hc\DrApiClient\Exception\EndpointUnsupportedActionException;
 
 abstract class Endpoint {
 
