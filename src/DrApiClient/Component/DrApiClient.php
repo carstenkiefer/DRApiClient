@@ -6,9 +6,10 @@
 namespace Hc\DrApiClient\Component;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Request;
 use Hc\DrApiClient\Endpoint\Endpoint;
+use Hc\DrApiClient\Exception\ApiException;
+use Hc\DrApiClient\Resource\Resource;
 
 class DrApiClient {
 
@@ -64,11 +65,12 @@ class DrApiClient {
             $data = json_decode($response->getBody()->getContents());
             $this->cache->save(self::$KEY_TOKEN, $data->access_token, 3600);
             return $data->access_token;
+        }   else {
+            throw new ApiException($response->getReasonPhrase(), $response->getStatusCode());
         }
-        throw new ServerException(self::$MSG_SERVER_ERROR, null, $response);
     }
 
-    public function create(string $endpointClass, array $data, array $options = []) {
+    public function create(string $endpointClass, array $data, array $options = []):string {
         /* @var \Hc\DrApiClient\Endpoint\Endpoint $endpoint */
         $endpoint = new $endpointClass();
         $http = new Client(['base_uri' => $_ENV["HC_DRAPICLIENT_HOST"]]);
@@ -77,13 +79,30 @@ class DrApiClient {
         }
         $response = $http->post($endpoint->getEndpoint(Endpoint::$CREATE), array_merge($this->getDefaultOptions(), $options, ["json" => $data]));
         if ($response->getStatusCode() === 200) {
-            $json = json_decode($response->getBody()->getContents(), false);
+            $json = json_decode($response->getBody()->getContents(), true);
             return array_shift($json);
+        }   else {
+            throw new ApiException($response->getReasonPhrase(), $response->getStatusCode());
         }
-        return false;
     }
 
-    public function read(string $endpointClass, $id, array $options = []) {
+    public function update(string $endpointClass, $id, array $data, array $options = []):string {
+        /* @var \Hc\DrApiClient\Endpoint\Endpoint $endpoint */
+        $endpoint = new $endpointClass();
+        $http = new Client(['base_uri' => $_ENV["HC_DRAPICLIENT_HOST"]]);
+        if (!isset($data["portal_account_id"])) {
+            $data["portal_account_id"] = $_ENV["HC_DRAPICLIENT_PORTAL_ACCOUNT_ID"];
+        }
+        $response = $http->post($endpoint->getEndpoint(Endpoint::$UPDATE, $id), array_merge($this->getDefaultOptions(), $options, ["json" => $data]));
+        if ($response->getStatusCode() === 200) {
+            $json = json_decode($response->getBody()->getContents(), true);
+            return array_shift($json);
+        }   else {
+            throw new ApiException($response->getReasonPhrase(), $response->getStatusCode());
+        }
+    }
+
+    public function read(string $endpointClass, $id, array $options = []):Resource {
         /* @var \Hc\DrApiClient\Endpoint\Endpoint $endpoint */
         $endpoint = new $endpointClass();
         $query = http_build_query($options);
@@ -96,15 +115,15 @@ class DrApiClient {
         $response = $http->send($request);
         if ($response->getStatusCode() === 200) {
             $json = json_decode($response->getBody()->getContents(), false);
-            print_r($json);
             $data = $json->{$endpoint->getName()};
             $resourceClass = $endpoint->getResource();
             /* @var \Hc\DrApiClient\Resource\Resource $obj */
             $obj = new $resourceClass();
             $obj->setData($data);
             return $obj;
+        }   else {
+            throw new ApiException($response->getReasonPhrase(), $response->getStatusCode());
         }
-        return false;
     }
 
     public function getList(string $endpointClass, array $options = []): array {
@@ -130,8 +149,9 @@ class DrApiClient {
                 $list[] = $obj;
             }
             return $list;
+        }   else {
+            throw new ApiException($response->getReasonPhrase(), $response->getStatusCode());
         }
-        return false;
     }
 
     public static function getClient(): DrApiClient {
