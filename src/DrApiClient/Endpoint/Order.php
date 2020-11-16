@@ -19,8 +19,8 @@ class Order extends Endpoint {
         "list" => "order",
         "create" => "order",
         "read" => "order/%ID%",
-        "update" => false,
-        "delete" => false
+        "update" => "order/%ID%",
+        "delete" => "order/%ID%"
     ];
 
 }
