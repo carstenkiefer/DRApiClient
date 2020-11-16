@@ -47,7 +47,7 @@ class DrApiClient {
     protected function getOptions($json = []): array {
         return array_merge_recursive(
             $this->getDefaultOptions(),
-            ["body" => "[".json_encode($json)."]"]
+            ["body" => "[" . json_encode($json) . "]"]
         );
     }
 
@@ -65,12 +65,12 @@ class DrApiClient {
             $data = json_decode($response->getBody()->getContents());
             $this->cache->save(self::$KEY_TOKEN, $data->access_token, 3600);
             return $data->access_token;
-        }   else {
+        } else {
             throw new ApiException($response->getReasonPhrase(), $response->getStatusCode());
         }
     }
 
-    public function create(string $endpointClass, array $data, array $options = []):string {
+    public function create(string $endpointClass, array $data, array $options = []): string {
         /* @var \Hc\DrApiClient\Endpoint\Endpoint $endpoint */
         $endpoint = new $endpointClass();
         $http = new Client(['base_uri' => $_ENV["HC_DRAPICLIENT_HOST"]]);
@@ -81,12 +81,27 @@ class DrApiClient {
         if ($response->getStatusCode() === 200) {
             $json = json_decode($response->getBody()->getContents(), true);
             return array_shift($json);
-        }   else {
+        } else {
             throw new ApiException($response->getReasonPhrase(), $response->getStatusCode());
         }
     }
 
-    public function update(string $endpointClass, $id, array $data, array $options = []):string {
+    public function delete(string $endpointClass, $id) {
+        /* @var \Hc\DrApiClient\Endpoint\Endpoint $endpoint */
+        $endpoint = new $endpointClass();
+        $http = new Client(['base_uri' => $_ENV["HC_DRAPICLIENT_HOST"]]);
+        $response = $http->delete($endpoint->getEndpoint(Endpoint::$DELETE, $id), [
+            "headers" => ["Authorization" => "Bearer " . $this->getToken()]
+        ]);
+        if ($response->getStatusCode() === 200) {
+            $json = json_decode($response->getBody()->getContents(), true);
+            return array_shift($json);
+        } else {
+            throw new ApiException($response->getReasonPhrase(), $response->getStatusCode());
+        }
+    }
+
+    public function update(string $endpointClass, $id, array $data, array $options = []): string {
         /* @var \Hc\DrApiClient\Endpoint\Endpoint $endpoint */
         $endpoint = new $endpointClass();
         $http = new Client(['base_uri' => $_ENV["HC_DRAPICLIENT_HOST"]]);
@@ -97,18 +112,18 @@ class DrApiClient {
         if ($response->getStatusCode() === 200) {
             $json = json_decode($response->getBody()->getContents(), true);
             return array_shift($json);
-        }   else {
+        } else {
             throw new ApiException($response->getReasonPhrase(), $response->getStatusCode());
         }
     }
 
-    public function read(string $endpointClass, $id, array $options = []):Resource {
+    public function read(string $endpointClass, $id, array $options = []): Resource {
         /* @var \Hc\DrApiClient\Endpoint\Endpoint $endpoint */
         $endpoint = new $endpointClass();
         $query = http_build_query($options);
         $request = new Request(
             "GET",
-            $_ENV["HC_DRAPICLIENT_HOST"].$endpoint->getEndpoint(Endpoint::$READ)."?".$query,
+            $_ENV["HC_DRAPICLIENT_HOST"] . $endpoint->getEndpoint(Endpoint::$READ) . "?" . $query,
             $this->getResourceHeaders()
         );
         $http = new Client(['base_uri' => $_ENV["HC_DRAPICLIENT_HOST"]]);
@@ -121,7 +136,7 @@ class DrApiClient {
             $obj = new $resourceClass();
             $obj->setData($data);
             return $obj;
-        }   else {
+        } else {
             throw new ApiException($response->getReasonPhrase(), $response->getStatusCode());
         }
     }
@@ -132,7 +147,7 @@ class DrApiClient {
         $query = http_build_query($options);
         $request = new Request(
             "GET",
-            $_ENV["HC_DRAPICLIENT_HOST"].$endpoint->getEndpoint(Endpoint::$LIST)."?".$query,
+            $_ENV["HC_DRAPICLIENT_HOST"] . $endpoint->getEndpoint(Endpoint::$LIST) . "?" . $query,
             $this->getResourceHeaders()
         );
         $http = new Client(['base_uri' => $_ENV["HC_DRAPICLIENT_HOST"]]);
@@ -149,7 +164,7 @@ class DrApiClient {
                 $list[] = $obj;
             }
             return $list;
-        }   else {
+        } else {
             throw new ApiException($response->getReasonPhrase(), $response->getStatusCode());
         }
     }
