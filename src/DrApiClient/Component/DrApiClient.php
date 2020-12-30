@@ -21,19 +21,22 @@ class DrApiClient {
     private $pass;
     private $cache;
 
+    private $config;
+
     private static $KEY_TOKEN = "DRAPICLIENT_TOKEN";
 
-    private function __construct() {
-        $this->user = $_ENV["HC_DRAPICLIENT_API_USER"];
-        $this->pass = $_ENV["HC_DRAPICLIENT_API_PASS"];
-        $this->cache = Cache::getInstance();
+    private function __construct(array $config = [], \Doctrine\Common\Cache\Cache $cache = null) {
+        $this->config = $config;
+        $this->user = $config["HC_DRAPICLIENT_API_USER"];
+        $this->pass = $config["HC_DRAPICLIENT_API_PASS"];
+        $this->cache = $cache ?: Cache::getInstance($config);
     }
 
     protected function getResourceHeaders(): array {
         return [
-            "Content-Type" => "application/json encoding=" . $_ENV["HC_DRAPICLIENT_CHARSET"],
+            "Content-Type" => "application/json encoding=" . $this->config["HC_DRAPICLIENT_CHARSET"],
             "Accept" => "application/json",
-            "Accept-Charset" => $_ENV["HC_DRAPICLIENT_CHARSET"],
+            "Accept-Charset" => $this->config["HC_DRAPICLIENT_CHARSET"],
             "Authorization" => "Bearer " . $this->getToken()
         ];
     }
@@ -53,13 +56,13 @@ class DrApiClient {
 
     public function getToken(): string {
         if ($this->cache->contains(self::$KEY_TOKEN)) return $this->cache->fetch(self::$KEY_TOKEN);
-        $http = new Client(['base_uri' => $_ENV["HC_DRAPICLIENT_AUTHHOST"]]);
+        $http = new Client(['base_uri' => $this->config["HC_DRAPICLIENT_AUTHHOST"]]);
         $response = $http->post("token.php", [
             "json" => ["grant_type" => "client_credentials"],
             "headers" => [
-                "Content-Type" => "application/json encoding=" . $_ENV["HC_DRAPICLIENT_CHARSET"]
+                "Content-Type" => "application/json encoding=" . $this->config["HC_DRAPICLIENT_CHARSET"]
             ],
-            "auth" => [$_ENV["HC_DRAPICLIENT_API_USER"], $_ENV["HC_DRAPICLIENT_API_PASS"]]
+            "auth" => [$this->config["HC_DRAPICLIENT_API_USER"], $this->config["HC_DRAPICLIENT_API_PASS"]]
         ]);
         if ($response->getStatusCode() <= 300) {
             $data = json_decode($response->getBody()->getContents());
@@ -73,9 +76,9 @@ class DrApiClient {
     public function create(string $endpointClass, array $data, array $options = []): string {
         /* @var \Hc\DrApiClient\Endpoint\Endpoint $endpoint */
         $endpoint = new $endpointClass();
-        $http = new Client(['base_uri' => $_ENV["HC_DRAPICLIENT_HOST"]]);
+        $http = new Client(['base_uri' => $this->config["HC_DRAPICLIENT_HOST"]]);
         if (!isset($data["portal_account_id"])) {
-            $data["portal_account_id"] = $_ENV["HC_DRAPICLIENT_PORTAL_ACCOUNT_ID"];
+            $data["portal_account_id"] = $this->config["HC_DRAPICLIENT_PORTAL_ACCOUNT_ID"];
         }
         $response = $http->post($endpoint->getEndpoint(Endpoint::$CREATE), array_merge($this->getDefaultOptions(), $options, ["json" => $data]));
         if ($response->getStatusCode() <= 300) {
@@ -89,7 +92,7 @@ class DrApiClient {
     public function delete(string $endpointClass, $id) {
         /* @var \Hc\DrApiClient\Endpoint\Endpoint $endpoint */
         $endpoint = new $endpointClass();
-        $http = new Client(['base_uri' => $_ENV["HC_DRAPICLIENT_HOST"]]);
+        $http = new Client(['base_uri' => $this->config["HC_DRAPICLIENT_HOST"]]);
         $response = $http->delete($endpoint->getEndpoint(Endpoint::$DELETE, $id), [
             "headers" => ["Authorization" => "Bearer " . $this->getToken()]
         ]);
@@ -104,9 +107,9 @@ class DrApiClient {
     public function update(string $endpointClass, $id, array $data, array $options = []): string {
         /* @var \Hc\DrApiClient\Endpoint\Endpoint $endpoint */
         $endpoint = new $endpointClass();
-        $http = new Client(['base_uri' => $_ENV["HC_DRAPICLIENT_HOST"]]);
+        $http = new Client(['base_uri' => $this->config["HC_DRAPICLIENT_HOST"]]);
         if (!isset($data["portal_account_id"])) {
-            $data["portal_account_id"] = $_ENV["HC_DRAPICLIENT_PORTAL_ACCOUNT_ID"];
+            $data["portal_account_id"] = $this->config["HC_DRAPICLIENT_PORTAL_ACCOUNT_ID"];
         }
         $response = $http->post($endpoint->getEndpoint(Endpoint::$UPDATE, $id), array_merge($this->getDefaultOptions(), $options, ["json" => $data]));
         if ($response->getStatusCode() <= 300) {
@@ -123,10 +126,10 @@ class DrApiClient {
         $query = http_build_query($options);
         $request = new Request(
             "GET",
-            $_ENV["HC_DRAPICLIENT_HOST"] . $endpoint->getEndpoint(Endpoint::$READ) . "?" . $query,
+            $this->config["HC_DRAPICLIENT_HOST"] . $endpoint->getEndpoint(Endpoint::$READ) . "?" . $query,
             $this->getResourceHeaders()
         );
-        $http = new Client(['base_uri' => $_ENV["HC_DRAPICLIENT_HOST"]]);
+        $http = new Client(['base_uri' => $this->config["HC_DRAPICLIENT_HOST"]]);
         $response = $http->send($request);
         if ($response->getStatusCode() <= 300) {
             $json = json_decode($response->getBody()->getContents(), false);
@@ -147,10 +150,10 @@ class DrApiClient {
         $query = http_build_query($options);
         $request = new Request(
             "GET",
-            $_ENV["HC_DRAPICLIENT_HOST"] . $endpoint->getEndpoint(Endpoint::$LIST) . "?" . $query,
+            $this->config["HC_DRAPICLIENT_HOST"] . $endpoint->getEndpoint(Endpoint::$LIST) . "?" . $query,
             $this->getResourceHeaders()
         );
-        $http = new Client(['base_uri' => $_ENV["HC_DRAPICLIENT_HOST"]]);
+        $http = new Client(['base_uri' => $this->config["HC_DRAPICLIENT_HOST"]]);
         $response = $http->send($request);
         if ($response->getStatusCode() <= 300) {
             $list = [];

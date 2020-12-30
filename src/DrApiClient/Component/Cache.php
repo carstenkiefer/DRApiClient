@@ -7,17 +7,17 @@ namespace Hc\DrApiClient\Component;
 
 use Doctrine\Common\Cache\PhpFileCache;
 
-class Cache {
+class Cache extends PhpFileCache {
 
     private static $cache = false;
 
     /**
      * @return PhpFileCache
      */
-    public static function getInstance() {
+    public static function getInstance(array $configuration = []) {
         if(!self::$cache) {
             self::$cache = new PhpFileCache(
-                $_ENV["HC_DRAPICLIENT_CACHE_DIR"]
+                configuration["HC_DRAPICLIENT_CACHE_DIR"]
             );
         }
         return self::$cache;
