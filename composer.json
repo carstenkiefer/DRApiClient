@@ -9,14 +9,18 @@
   ],
   "autoload": {
     "psr-4": {
-      "Hc\\": "src/"
+      "Hc\\": "src/",
+      "Hc\\GuzzleHttp\\": "lib/guzzle/src/",
+      "Hc\\GuzzleHttp\\Promise\\": "lib/promises/src/",
+      "Hc\\GuzzleHttp\\Psr7\\": "lib/psr7/src/",
+      "Hc\\Psr\\Http\\Message\\": "lib/http-message/src/",
+      "Hc\\Psr\\Http\\Client\\": "lib/http-client/src/"
     }
   },
   "require": {
     "vlucas/phpdotenv": "^5.2",
     "doctrine/cache": "^1.10",
     "monolog/monolog": "^2.1",
-    "guzzlehttp/guzzle": "^7.2",
     "ext-json": "^7.4"
   }
 }
