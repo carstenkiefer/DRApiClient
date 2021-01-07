@@ -5,8 +5,8 @@
 
 namespace Hc\DrApiClient\Component;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
+use Hc\GuzzleHttp\Client;
+use Hc\GuzzleHttp\Psr7\Request;
 use Hc\DrApiClient\Endpoint\Endpoint;
 use Hc\DrApiClient\Exception\ApiException;
 use Hc\DrApiClient\Resource\Resource;
@@ -172,9 +172,9 @@ class DrApiClient {
         }
     }
 
-    public static function getClient(): DrApiClient {
+    public static function getClient($config = [], $cache = null): DrApiClient {
         if (!self::$client) {
-            self::$client = new DrApiClient();
+            self::$client = new DrApiClient($config, null);
         }
         return self::$client;
     }

@@ -14,7 +14,7 @@ use Hc\Psr\Http\Message\UriInterface;
 /**
  * @final
  */
-class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
+class Client implements ClientInterface, \Hc\Psr\Http\Client\ClientInterface
 {
     use ClientTrait;
 

@@ -17,7 +17,7 @@ class Cache extends PhpFileCache {
     public static function getInstance(array $configuration = []) {
         if(!self::$cache) {
             self::$cache = new PhpFileCache(
-                configuration["HC_DRAPICLIENT_CACHE_DIR"]
+                $configuration["HC_DRAPICLIENT_CACHE_DIR"]
             );
         }
         return self::$cache;
