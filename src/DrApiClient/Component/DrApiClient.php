@@ -26,6 +26,9 @@ class DrApiClient {
     private static $KEY_TOKEN = "DRAPICLIENT_TOKEN";
 
     private function __construct(array $config = [], \Doctrine\Common\Cache\Cache $cache = null) {
+        if(empty($config)) {
+            $config = $_ENV;
+        }
         $this->config = $config;
         $this->user = $config["HC_DRAPICLIENT_API_USER"];
         $this->pass = $config["HC_DRAPICLIENT_API_PASS"];
@@ -172,11 +175,15 @@ class DrApiClient {
         }
     }
 
-    public static function getClient($config = [], $cache = null): DrApiClient {
+    public static function getClient($config = [], $cache = null, $reset = false): DrApiClient {
+        if($reset) {
+            self::$client = false;
+        }
         if (!self::$client) {
-            self::$client = new DrApiClient($config, null);
+            self::$client = new DrApiClient($config, $cache);
         }
         return self::$client;
     }
+
 
 }
