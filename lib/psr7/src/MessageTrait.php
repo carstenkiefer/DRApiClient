@@ -2,7 +2,7 @@
 
 namespace Hc\GuzzleHttp\Psr7;
 
-use Hc\Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * Trait implementing functionality common to requests and responses.

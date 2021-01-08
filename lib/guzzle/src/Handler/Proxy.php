@@ -4,7 +4,7 @@ namespace Hc\GuzzleHttp\Handler;
 
 use Hc\GuzzleHttp\Promise\PromiseInterface;
 use Hc\GuzzleHttp\RequestOptions;
-use Hc\Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * Provides basic proxies for handlers.

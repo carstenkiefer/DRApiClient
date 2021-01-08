@@ -2,7 +2,7 @@
 
 namespace Hc\GuzzleHttp;
 
-use Hc\Psr\Http\Message\MessageInterface;
+use Psr\Http\Message\MessageInterface;
 
 final class BodySummarizer implements BodySummarizerInterface
 {

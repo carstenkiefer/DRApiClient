@@ -10,10 +10,10 @@ use Hc\GuzzleHttp\Promise\PromiseInterface;
 use Hc\GuzzleHttp\Psr7;
 use Hc\GuzzleHttp\TransferStats;
 use Hc\GuzzleHttp\Utils;
-use Hc\Psr\Http\Message\RequestInterface;
-use Hc\Psr\Http\Message\ResponseInterface;
-use Hc\Psr\Http\Message\StreamInterface;
-use Hc\Psr\Http\Message\UriInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UriInterface;
 
 /**
  * HTTP handler that uses PHP's HTTP stream wrapper.

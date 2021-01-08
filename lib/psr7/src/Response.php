@@ -2,8 +2,8 @@
 
 namespace Hc\GuzzleHttp\Psr7;
 
-use Hc\Psr\Http\Message\ResponseInterface;
-use Hc\Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * PSR-7 response implementation.

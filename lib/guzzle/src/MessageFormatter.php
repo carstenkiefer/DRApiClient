@@ -2,9 +2,9 @@
 
 namespace Hc\GuzzleHttp;
 
-use Hc\Psr\Http\Message\MessageInterface;
-use Hc\Psr\Http\Message\RequestInterface;
-use Hc\Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\MessageInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Formats log messages using variable substitutions for requests, responses,

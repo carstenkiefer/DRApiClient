@@ -2,8 +2,8 @@
 
 namespace Hc\GuzzleHttp\Exception;
 
-use Hc\Psr\Http\Client\NetworkExceptionInterface;
-use Hc\Psr\Http\Message\RequestInterface;
+use Psr\Http\Client\NetworkExceptionInterface;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * Exception thrown when a connection cannot be established.

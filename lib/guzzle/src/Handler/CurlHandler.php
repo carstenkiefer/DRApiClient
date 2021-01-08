@@ -3,7 +3,7 @@
 namespace Hc\GuzzleHttp\Handler;
 
 use Hc\GuzzleHttp\Promise\PromiseInterface;
-use Hc\Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * HTTP handler that uses cURL easy handles as a transport layer.

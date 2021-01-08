@@ -8,9 +8,9 @@ use Hc\GuzzleHttp\Promise as P;
 use Hc\GuzzleHttp\Promise\PromiseInterface;
 use Hc\GuzzleHttp\TransferStats;
 use Hc\GuzzleHttp\Utils;
-use Hc\Psr\Http\Message\RequestInterface;
-use Hc\Psr\Http\Message\ResponseInterface;
-use Hc\Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * Handler that returns responses or throw exceptions from a queue.

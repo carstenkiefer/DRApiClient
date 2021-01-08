@@ -2,10 +2,10 @@
 
 namespace Hc\GuzzleHttp\Psr7;
 
-use Hc\Psr\Http\Message\RequestInterface;
-use Hc\Psr\Http\Message\ServerRequestInterface;
-use Hc\Psr\Http\Message\StreamInterface;
-use Hc\Psr\Http\Message\UriInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UriInterface;
 
 final class Utils
 {

@@ -6,9 +6,9 @@ use Hc\GuzzleHttp\Cookie\CookieJarInterface;
 use Hc\GuzzleHttp\Exception\RequestException;
 use Hc\GuzzleHttp\Promise as P;
 use Hc\GuzzleHttp\Promise\PromiseInterface;
-use Hc\Psr\Http\Message\RequestInterface;
-use Hc\Psr\Http\Message\ResponseInterface;
-use Hc\Psr\Log\LoggerInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Functions used to create and wrap handlers with handler middleware.

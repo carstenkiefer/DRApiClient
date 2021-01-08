@@ -2,7 +2,7 @@
 
 namespace Hc\Psr\Http\Client;
 
-use Hc\Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * Exception for when a request failed.

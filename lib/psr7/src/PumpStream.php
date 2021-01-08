@@ -2,7 +2,7 @@
 
 namespace Hc\GuzzleHttp\Psr7;
 
-use Hc\Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * Provides a read only stream that pumps data from a PHP callable.

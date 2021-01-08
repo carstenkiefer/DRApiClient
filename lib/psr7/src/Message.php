@@ -2,9 +2,9 @@
 
 namespace Hc\GuzzleHttp\Psr7;
 
-use Hc\Psr\Http\Message\MessageInterface;
-use Hc\Psr\Http\Message\RequestInterface;
-use Hc\Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\MessageInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 final class Message
 {

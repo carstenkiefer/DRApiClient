@@ -6,7 +6,7 @@ use Hc\GuzzleHttp\Promise as P;
 use Hc\GuzzleHttp\Promise\Promise;
 use Hc\GuzzleHttp\Promise\PromiseInterface;
 use Hc\GuzzleHttp\Utils;
-use Hc\Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * Returns an asynchronous response using curl_multi_* functions.

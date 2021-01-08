@@ -10,7 +10,7 @@ use Hc\GuzzleHttp\Promise\PromiseInterface;
 use Hc\GuzzleHttp\Psr7\LazyOpenStream;
 use Hc\GuzzleHttp\TransferStats;
 use Hc\GuzzleHttp\Utils;
-use Hc\Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * Creates curl resources from a request

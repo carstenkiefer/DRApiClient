@@ -2,7 +2,7 @@
 
 namespace Hc\GuzzleHttp\Handler;
 
-use Hc\Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\RequestInterface;
 
 interface CurlFactoryInterface
 {

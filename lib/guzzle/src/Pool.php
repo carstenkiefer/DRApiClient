@@ -6,7 +6,7 @@ use Hc\GuzzleHttp\Promise as P;
 use Hc\GuzzleHttp\Promise\EachPromise;
 use Hc\GuzzleHttp\Promise\PromiseInterface;
 use Hc\GuzzleHttp\Promise\PromisorInterface;
-use Hc\Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * Sends an iterator of requests concurrently using a capped pool size.

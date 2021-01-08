@@ -5,9 +5,9 @@ namespace Hc\GuzzleHttp;
 use Hc\GuzzleHttp\Exception\BadResponseException;
 use Hc\GuzzleHttp\Exception\TooManyRedirectsException;
 use Hc\GuzzleHttp\Promise\PromiseInterface;
-use Hc\Psr\Http\Message\RequestInterface;
-use Hc\Psr\Http\Message\ResponseInterface;
-use Hc\Psr\Http\Message\UriInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 /**
  * Request redirect middleware.

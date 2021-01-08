@@ -2,7 +2,7 @@
 
 namespace Hc\GuzzleHttp\Psr7;
 
-use Hc\Psr\Http\Message\UriInterface;
+use Psr\Http\Message\UriInterface;
 
 /**
  * Resolves a URI reference in the context of a base URI and the opposite way.

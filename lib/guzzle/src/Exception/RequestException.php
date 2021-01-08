@@ -4,10 +4,10 @@ namespace Hc\GuzzleHttp\Exception;
 
 use Hc\GuzzleHttp\BodySummarizer;
 use Hc\GuzzleHttp\BodySummarizerInterface;
-use Hc\Psr\Http\Client\RequestExceptionInterface;
-use Hc\Psr\Http\Message\RequestInterface;
-use Hc\Psr\Http\Message\ResponseInterface;
-use Hc\Psr\Http\Message\UriInterface;
+use Psr\Http\Client\RequestExceptionInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 /**
  * HTTP Request exception

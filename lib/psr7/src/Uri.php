@@ -2,7 +2,7 @@
 
 namespace Hc\GuzzleHttp\Psr7;
 
-use Hc\Psr\Http\Message\UriInterface;
+use Psr\Http\Message\UriInterface;
 
 /**
  * PSR-7 URI implementation.

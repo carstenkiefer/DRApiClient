@@ -4,9 +4,9 @@ namespace Hc\GuzzleHttp;
 
 use Hc\GuzzleHttp\Exception\GuzzleException;
 use Hc\GuzzleHttp\Promise\PromiseInterface;
-use Hc\Psr\Http\Message\RequestInterface;
-use Hc\Psr\Http\Message\ResponseInterface;
-use Hc\Psr\Http\Message\UriInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 /**
  * Client interface for sending HTTP requests.

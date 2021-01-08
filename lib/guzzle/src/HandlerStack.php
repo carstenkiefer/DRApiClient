@@ -3,8 +3,8 @@
 namespace Hc\GuzzleHttp;
 
 use Hc\GuzzleHttp\Promise\PromiseInterface;
-use Hc\Psr\Http\Message\RequestInterface;
-use Hc\Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Creates a composed Guzzle handler function by stacking middlewares on top of

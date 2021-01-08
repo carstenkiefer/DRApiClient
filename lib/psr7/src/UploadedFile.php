@@ -3,8 +3,8 @@
 namespace Hc\GuzzleHttp\Psr7;
 
 use InvalidArgumentException;
-use Hc\Psr\Http\Message\StreamInterface;
-use Hc\Psr\Http\Message\UploadedFileInterface;
+use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UploadedFileInterface;
 use RuntimeException;
 
 class UploadedFile implements UploadedFileInterface

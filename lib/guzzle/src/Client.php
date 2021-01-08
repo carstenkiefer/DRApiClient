@@ -7,14 +7,14 @@ use Hc\GuzzleHttp\Exception\GuzzleException;
 use Hc\GuzzleHttp\Exception\InvalidArgumentException;
 use Hc\GuzzleHttp\Promise as P;
 use Hc\GuzzleHttp\Promise\PromiseInterface;
-use Hc\Psr\Http\Message\RequestInterface;
-use Hc\Psr\Http\Message\ResponseInterface;
-use Hc\Psr\Http\Message\UriInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 /**
  * @final
  */
-class Client implements ClientInterface, \Hc\Psr\Http\Client\ClientInterface
+class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
 {
     use ClientTrait;
 

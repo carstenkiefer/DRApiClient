@@ -4,9 +4,9 @@ namespace Hc\GuzzleHttp\Handler;
 
 use Hc\GuzzleHttp\Psr7\Response;
 use Hc\GuzzleHttp\Utils;
-use Hc\Psr\Http\Message\RequestInterface;
-use Hc\Psr\Http\Message\ResponseInterface;
-use Hc\Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * Represents a cURL easy handle and the data it populates.

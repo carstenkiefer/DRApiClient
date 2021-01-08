@@ -7,7 +7,7 @@ use Hc\GuzzleHttp\Handler\CurlHandler;
 use Hc\GuzzleHttp\Handler\CurlMultiHandler;
 use Hc\GuzzleHttp\Handler\Proxy;
 use Hc\GuzzleHttp\Handler\StreamHandler;
-use Hc\Psr\Http\Message\UriInterface;
+use Psr\Http\Message\UriInterface;
 
 final class Utils
 {
