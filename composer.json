@@ -21,6 +21,7 @@
     "vlucas/phpdotenv": "^5.2",
     "doctrine/cache": "^1.10",
     "monolog/monolog": "^2.1",
+    "guzzlehttp/guzzle": "^7.2",
     "ext-json": "^7.4"
   }
 }
