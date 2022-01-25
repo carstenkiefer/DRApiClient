@@ -24,7 +24,7 @@ namespace Hc\DrApiClient\Resource;
  * @property Customer $customer
  * @property Shipping $shipping
  * @property OrderStatus $status
- * @property array $line
+ * @property OrderLine[] $line
  * @property string $bill_url
  * @property string $paypal_transaction_id
  * @property array $add_field
