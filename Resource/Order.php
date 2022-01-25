@@ -32,6 +32,5 @@ namespace Hc\DrApiClient\Resource;
  */
 class Order extends Resource {
 
-    // ignored
 }
 
