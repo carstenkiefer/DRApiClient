@@ -23,7 +23,7 @@ namespace Hc\DrApiClient\Resource;
  * @property int $currency_id
  * @property Customer $customer
  * @property Shipping $shipping
- * @property OrderStatus $status 
+ * @property OrderStatus $status
  * @property OrderLine[] $line
  * @property string $bill_url
  * @property string $paypal_transaction_id
@@ -32,5 +32,6 @@ namespace Hc\DrApiClient\Resource;
  */
 class Order extends Resource {
 
+    // ignored
 }
 
