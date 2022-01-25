@@ -18,7 +18,7 @@ class Resource {
         }
     }
 
-    #[Pure] public function __get($name) : Resource {
+    #[Pure] public function __get($name): Resource {
         return new Resource();
     }
 
@@ -29,11 +29,25 @@ class Resource {
         foreach ($props as $prop) {
             $name = $prop->getName();
             $value = $prop->getValue($this);
-            if(!$value instanceof \stdClass and !is_array($value)) {
+            if (!$value instanceof \stdClass and !is_array($value)) {
                 $export[] = $value;
             }
         }
         return implode(",", $export);
+    }
+
+    public function toArray(): array {
+        $src = new \ReflectionObject($this);
+        $props = $src->getProperties();
+        $export = [];
+        foreach ($props as $prop) {
+            $name = $prop->getName();
+            $value = $prop->getValue($this);
+            if (!$value instanceof \stdClass) {
+                $export[] = $value;
+            }
+        }
+        return $export;
     }
 
 }
