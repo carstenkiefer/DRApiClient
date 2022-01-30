@@ -18,6 +18,7 @@ namespace Hc\DrApiClient\Resource;
  * @property string $infos
  * @property string $hidden_infos
  * @property string $payment_method_id
+ * @property string $external_order_id
  * @property float $invoice_amount
  * @property float $paid_amount
  * @property int $currency_id
