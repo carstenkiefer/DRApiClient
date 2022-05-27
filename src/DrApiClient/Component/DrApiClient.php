@@ -5,8 +5,8 @@
 
 namespace Hc\DrApiClient\Component;
 
-use Hc\GuzzleHttp\Client;
-use Hc\GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 use Hc\DrApiClient\Endpoint\Endpoint;
 use Hc\DrApiClient\Exception\ApiException;
 use Hc\DrApiClient\Resource\Resource;
@@ -140,6 +140,7 @@ class DrApiClient {
             $resourceClass = $endpoint->getResource();
             /* @var \Hc\DrApiClient\Resource\Resource $obj */
             $obj = new $resourceClass();
+            die(json_encode($data));
             $obj->setData($data);
             return $obj;
         } else {
@@ -160,7 +161,7 @@ class DrApiClient {
         $response = $http->send($request);
         if ($response->getStatusCode() <= 300) {
             $list = [];
-            $json = json_decode($response->getBody()->getContents(), false);
+            $json = \json_decode($response->getBody()->getContents(), false);
             $data = $json->{$endpoint->getName()};
             foreach ($data as $d) {
                 $resourceClass = $endpoint->getResource();
@@ -184,6 +185,5 @@ class DrApiClient {
         }
         return self::$client;
     }
-
 
 }
